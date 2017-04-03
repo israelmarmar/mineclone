@@ -507,7 +507,7 @@ void pulainimigo(){
 static float t=0;
 static float t2=0;
 
-    glTranslatef(-150-70*cos(t2),abs(50*cos(t+15)),0);
+    glTranslatef(-150-70*cos(t2),10+abs(50*cos(t)),0);
     glScalef(1,0.65,1);
     glPushMatrix();
     inimigo();
