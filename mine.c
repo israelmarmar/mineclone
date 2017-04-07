@@ -8,7 +8,19 @@
 typedef unsigned char BYTE;
 
 void DefineIluminacao();
+GLuint lertexturabmp( const char * filename, int wrap );
+void cubo(int texture, int texture2);
+void display();
+void EspecificaParametrosVisualizacao();
+void GerenciaMouse(int button, int state, int x, int y);
+void TeclasEspeciais(int key, int x, int y);
+void motion(int x, int y);
+void init(void);
+void inimigo();
+void pulainimigo();
 void teclasup(int key, int x, int y);
+void Timer(int value);
+int posmapa(int x,int y, int z);
 
 int mapa[21][21][21]=
 {{{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0}},
@@ -34,8 +46,8 @@ int mapa[21][21][21]=
 {{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0}}};
 
 GLuint text,text2,text3,text4;
-GLfloat xpos=0, xposi=-150;
-ypos=70,yposi=0,zpos=500,zposi=0;angle, angle2, angle3, fAspect,sx,sy,sz,scl, vx, vy, vz;
+GLfloat xpos, xposi,
+ypos,yposi,zpos,zposi,angle, angle2, angle3, fAspect,sx,sy,sz,scl, vx, vy, vz;
 GLfloat cx,cy,cz;
 int moving,mr,mid,wi,he,moveup,movedown,moveleft,moveright;
 
@@ -387,8 +399,8 @@ void motion(int x, int y)
     float ** inputMatrix=alocarMatriz(4,1);
     float ** outputMatrix;
 
-    ang=-1.5*(x - sx)/(180.0*M_PI);
-    ang1=2.5*(y - sy)/(180.0*M_PI);
+    ang=-1*(x - sx)/(180.0*M_PI);
+    ang1=3*(y - sy)/(180.0*M_PI);
 
     cx=(cx*cos(ang)-xpos)+(cz*sin(ang)-zpos);
     cz=(cx*-sin(ang)-xpos)+(cz*cos(ang)-zpos);
@@ -457,12 +469,18 @@ void DefineIluminacao()
 void init(void)
 {
     glClearColor(0,0.7,1,0);
+    xpos=0;
+    xposi=-150;
+    ypos=70;
+    yposi=0;
+    zpos=500;
+    zposi=0;
     angle=50;
     angle3=45;
     scl=100;
-    cx=5000;
-    cy=75;
-    cz=5000;
+    cx=0;
+    cy=-130;
+    cz=100;
     vx=0;
     vy=1;
     vz=0;
@@ -621,7 +639,7 @@ void teclasup(int key, int x, int y)
 int main(int argc, char** argv)
 {
     glutInit(&argc,argv);
-    glutInitDisplayMode(GLUT_DOUBLE| GLUT_RGB | GLUT_DEPTH| GLUT_MULTISAMPLE);
+    glutInitDisplayMode(GLUT_DOUBLE| GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800,800);
     glutCreateWindow("mine");
     glutFullScreen();
